@@ -1,7 +1,0 @@
-#!/bin/bash
-
-echo "Rebooting to Windows 10..."
-WINDOWS_ENTRY=`sudo awk -F\' '/menuentry / {print }' /boot/grub/grub.cfg | grep -n Windows`
-MENU_NUMBER=$(( `echo $WINDOWS_ENTRY | sed -e "s/:.*//"` -2 ))
-sudo grub-reboot $MENU_NUMBER
-sudo reboot
