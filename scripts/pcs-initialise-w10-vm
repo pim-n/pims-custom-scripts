@@ -1,0 +1,5 @@
+#!/bin/sh
+
+sudo virsh net-start default
+GVT_GUID="65ab7c99-a004-45fd-a938-029bf3d3dd63"
+echo $GVT_GUID | sudo tee "/sys/bus/pci/devices/0000:00:02.0/mdev_supported_types/i915-GVTg_V5_4/create"
