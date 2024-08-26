@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 PATH_TO_INSTALL=/home/$(whoami)/.local/bin
-FILES=($PWD/scripts/pcs*)
+FILES=($PWD/scripts/*)
 NUM_OF_FILES=${#FILES[@]}
 
 for f in ${FILES[*]}
