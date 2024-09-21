@@ -1,0 +1,13 @@
+#!/bin/bash
+
+BASE_URL="http://kursplaner.lu.se/pdf/kurs/en/"
+
+# Check if a string was provided as an argument
+if [ -z "$1" ]; then
+  echo "Usage: $0 <string>"
+  exit 1
+fi
+
+FULL_URL="${BASE_URL}$1"
+xdg-open "$FULL_URL" &
+
