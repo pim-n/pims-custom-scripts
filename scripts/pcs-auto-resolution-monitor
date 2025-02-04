@@ -1,10 +1,8 @@
 #!/bin/bash
 
-# Check if DP1 is connected
-if xrandr --listactivemonitors | grep -q "1: +DP1"; then
-    # DP1 is connected
+# Check if display connected
+if xrandr --listactivemonitors | grep -q "1: +DP-3"; then
     autorandr --load home_usbc --force
 else
-    # DP1 is not connected, do nothing
-    echo "Monitor 1 (DP1) is not connected."
+    echo "Monitor 1 (DP-3) is not connected."
 fi

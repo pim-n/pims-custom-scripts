@@ -2,19 +2,22 @@
 
 CMD="brightnessctl set"
 STATUS=$(brightnessctl g)
+MAX=$(brightnessctl m)
+CURRENT=$(echo "scale=2; $STATUS / $MAX" | bc)
 
 if [ $1 = 'd' ]; then
-    if [ $STATUS -le 11 ]; then
+    # Using bc to perform floating-point comparison
+    if (( $(echo "$CURRENT <= 0.05" | bc -l) )); then
         bash -c "$CMD 1"
-    elif [ $STATUS -le 51 ]; then
-        bash -c "$CMD 10-"
+    elif (( $(echo "$CURRENT <= 0.1" | bc -l) )); then
+        bash -c "$CMD 2%-"
     else
-        bash -c "$CMD 50-"
+        bash -c "$CMD 5%-"
     fi
 elif [ $1 = 'u' ]; then
-    if [ $STATUS -lt 51 ]; then
-        bash -c "$CMD +10"
+    if (( $(echo "$CURRENT < 0.1" | bc -l) )); then
+        bash -c "$CMD +2%"
     else
-        bash -c "$CMD +50"
+        bash -c "$CMD +5%"
     fi
 fi

@@ -1,0 +1,27 @@
+#/usr/bin/bash
+
+output=$(v4l2-ctl --device=/dev/video4 --list-ctrls)
+brightness=$(echo "$output" | grep "brightness" | grep -oP 'value=\K\d+')
+contrast=$(echo "$output" | grep "contrast" | grep -oP 'value=\K\d+')
+
+CMD="v4l2-ctl --device=/dev/video4 --set-ctrl="
+
+case $1 in
+  b)  # Brightness
+    if [ "$2" = 'u' ]; then
+      bash -c "${CMD}brightness=$((brightness + 2))"
+    elif [ "$2" = 'd' ]; then
+      bash -c "${CMD}brightness=$((brightness - 2))"
+    fi
+    ;;
+  c)  # Contrast
+    if [ "$2" = 'u' ]; then
+      bash -c "${CMD}contrast=$((contrast + 2))"
+    elif [ "$2" = 'd' ]; then
+      bash -c "${CMD}contrast=$((contrast - 2))"
+    fi
+    ;;
+  *)
+    echo "Usage: $0 [b|c] [u|d]"
+    ;;
+esac
